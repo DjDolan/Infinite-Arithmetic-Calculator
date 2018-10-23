@@ -1,3 +1,8 @@
+"""
+This file will contain the necessary functions to read lines from the
+designated text file that was initialized from the command line.
+"""
+
 #function to read lines from file and store
 def read_file(input, exp):
     # open file

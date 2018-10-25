@@ -13,20 +13,28 @@ def parse(exp, parsed_line, tmp_str, nod, i):
     #base case
     if(i == len(exp)-1):
         tmp_str += exp[i]
-        parsed_line.append(tmp_str)
+        parsed_line.append(tmp_str[::-1])
 
     #if operator then append temporary string
     #and append operator to parsed line
     elif(is_operator(exp[i])):
-        parsed_line.append(tmp_str)
-        parsed_line.append(exp[i])
+        if not tmp_str:
+            parsed_line.append(exp[i])
+            parse(exp, parsed_line, tmp_str, nod, i+1)
+        else:
+            parsed_line.append(tmp_str[::-1])
+            parsed_line.append(exp[i])
+            tmp_str = ""
+            parse(exp, parsed_line, tmp_str, nod, i+1)
+
+    #if the size of the temporary string is
+    #equal to the number of digits per node
+    #append the temporary string to the list
+    elif(len(tmp_str) == nod-1):
+        tmp_str += exp[i]
+        parsed_line.append(tmp_str[::-1])
         tmp_str = ""
         parse(exp, parsed_line, tmp_str, nod, i+1)
-
-    # elif(len(tmp_str) == nod):
-    #     parsed_line.append(tmp_str)
-    #     tmp_str = ""
-    #     parse(exp, parsed_line, tmp_str, nod, i+1)
 
     #else append any number and keep iterating
     #through the expression 
@@ -34,7 +42,7 @@ def parse(exp, parsed_line, tmp_str, nod, i):
         tmp_str += exp[i]
         parse(exp, parsed_line, tmp_str, nod, i+1)
 
-    return parsed_line
+    return parsed_line[::-1]
 
 #reads the expression from main file and parses it
 def read_expression(exp, parsed_list, nod, i):
@@ -43,6 +51,8 @@ def read_expression(exp, parsed_list, nod, i):
     temp_string = ""
 
     parsed_list.append(parse(exp, parsed_line, temp_string, nod, 0))
+
+    return parsed_list
 
 
 

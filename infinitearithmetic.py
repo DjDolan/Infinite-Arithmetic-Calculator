@@ -5,9 +5,11 @@ This file is the main file where the final result will be handled.
 import getopt, sys
 from ReadFile import *
 from ReadExpressions import *
+from EvaluateExpressions import *
 
 def main():
-
+    #enter input file and number of digits on command line
+    input_file = "pycode.txt"
     numOfDigits = 2
 
     #create containers for expressions
@@ -15,7 +17,8 @@ def main():
     expressions = []            #list for expressions
     parsed_expressions = []     #list for parsed expressions
 
-    read_file("pycode.txt", expressions)
+    #read the input file and append to expressions list
+    read_file(input_file, expressions)
 
     #loop through expressions list to be read
     for exp in expressions:
@@ -23,7 +26,7 @@ def main():
 
     #evaluate each expression
     for parsed_exp in parsed_expressions:
-        print(parsed_exp)
+        split_expression(parsed_exp)
 
     #END MAIN
 

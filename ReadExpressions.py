@@ -2,25 +2,49 @@
 This file will contain the necessary functions for parsing the expressions.
 """
 
-#parser for separating expressions
-def parser(exp, parse_list, tmp_str, i):
+#function to check if character is an operator
+def is_operator(c):
+    if(c == '+' or c == '-' or c == '*' or c == '/'): return True
+    else: return False
+
+#parses the line for pushing to expressions list
+def parse(exp, parsed_line, tmp_str, nod, i):
+    
     #base case
-    #the iterator reaches the end of the expressions list
-    if(i == len(exp)):
-        print(exp[i])
-    else:
-        print(exp[i])
-        parser(exp, parse_list, tmp_str, i+1)
+    if(i == len(exp)-1):
+        tmp_str += exp[i]
+        parsed_line.append(tmp_str)
 
-#reads the expression from main file
-def read_expression(exp, parse_list, i):
-    iterator = 0 #iterator variable for recursive looping
-    temp_string = "" #temporary string for evaluation
+    #if operator then append temporary string
+    #and append operator to parsed line
+    elif(is_operator(exp[i])):
+        parsed_line.append(tmp_str)
+        parsed_line.append(exp[i])
+        tmp_str = ""
+        parse(exp, parsed_line, tmp_str, nod, i+1)
 
-    # base case
-    # the iterator reaches the end of the expressions list
-    if (i == len(exp)):
-        print(exp[i])
+    # elif(len(tmp_str) == nod):
+    #     parsed_line.append(tmp_str)
+    #     tmp_str = ""
+    #     parse(exp, parsed_line, tmp_str, nod, i+1)
+
+    #else append any number and keep iterating
+    #through the expression 
     else:
-        print(exp[i])
-        parser(exp, parse_list, tmp_str, i + 1)
+        tmp_str += exp[i]
+        parse(exp, parsed_line, tmp_str, nod, i+1)
+
+    return parsed_line
+
+#reads the expression from main file and parses it
+def read_expression(exp, parsed_list, nod, i):
+    
+    parsed_line = []
+    temp_string = ""
+
+    parsed_list.append(parse(exp, parsed_line, temp_string, nod, 0))
+
+
+
+
+

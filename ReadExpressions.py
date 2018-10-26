@@ -53,8 +53,3 @@ def read_expression(exp, parsed_list, nod, i):
     parsed_list.append(parse(exp, parsed_line, temp_string, nod, 0))
 
     return parsed_list
-
-
-
-
-

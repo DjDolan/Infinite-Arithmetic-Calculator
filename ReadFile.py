@@ -10,9 +10,8 @@ def read_file(input, exp):
 
     # loop through file
     for line in file:
-        # if line is blank then append 'blank'
-        if line == '\n':
-            exp.append("$")
+        # if line is blank then skip
+        if line is '\n': pass
 
         # clean up the line by removing delimeters
         else:

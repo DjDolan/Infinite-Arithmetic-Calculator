@@ -2,17 +2,18 @@
 This file will contain the necessary functions to evaluate the 
 mathematical expressions written in the text files specified.
 """
+
 from ReadExpressions import *
 from Operations import *
 
 #this function makes the operands the same length by appending zeroes
-def make_list_same_length(op1, op2, i):
+def make_lists_same_length(op1, op2, i):
 	#if they are not the same then keep appending '0'
-	if i == len(op1):
+	if i == len(op1): 
 		return
 	else:
 		op2.append(0)
-		make_list_same_length(op1, op2, i+1)
+		make_lists_same_length(op1, op2, i+1)
 
 #this function will divide it into the left operand
 def left_operand(parsed_exp, left_exp):
@@ -37,12 +38,36 @@ def right_operand(parsed_exp, right_exp):
 		parsed_exp.pop(0)
 		right_operand(parsed_exp, right_exp)
 
-#This function will split the expression to left, right, and operator
-def split_expression(parsed_exp, results, num_of_digits):
-	#divide the expression into left, right, and op
-	
+#this function evaluates the expression by the operation
+def evaluate(left, right, nod, op, results):
 	#temporary containers
 	res = []
+
+	#find the shorter expression to evaluate properly
+	#reverse the list for proper evaluation
+	#map the lists to integers for evaluation
+	if len(left) < len(right):
+		operand1 = list(map(int, right[::-1]))
+		operand2 = list(map(int, left[::-1]))
+	else:
+		operand1 = list(map(int, left[::-1]))
+		operand2 = list(map(int, right[::-1]))
+
+	#pass to make_list_same_length function
+	make_lists_same_length(operand1, operand2, len(operand2))
+
+	#operate on the operands with Operations.py
+	if op == '+':
+		#if operator is add then call the add function
+		add(operand1, operand2, res, nod, 0)
+		results.append(res)
+	elif op == '*':
+		#if operator is multiply call the multiply function
+		print("Multiplying")
+
+#This function will split the expression to left, right, and operator
+def split_expression(parsed_exp, results, num_of_digits):
+	#temporary containers
 	left_expression = []
 	right_expression = []
 	op = '!'
@@ -57,23 +82,7 @@ def split_expression(parsed_exp, results, num_of_digits):
 	#right expression
 	right_operand(parsed_exp, right_expression)
 
-	#find the shorter expression to evaluate properly
-	#reverse the list for proper evaluation
-	#map the lists to integers for evaluation
-	if len(left_expression) < len(right_expression):
-		operand1 = list(map(int, right_expression[::-1]))
-		operand2 = list(map(int, left_expression[::-1]))
-	else:
-		operand1 = list(map(int, left_expression[::-1]))
-		operand2 = list(map(int, right_expression[::-1]))
+	#pass to evaluation
+	evaluate(left_expression, right_expression, num_of_digits, op, results)
 
-	make_list_same_length(operand1, operand2, len(operand2))
 
-	#operate on the operands with Operations.py
-	if op == '+':
-		#if operator is add then call the add function
-		add(operand1, operand2, res, num_of_digits, 0)
-		results.append(res)
-	elif op == '*':
-		#if operator is multiply call the multiply function
-		print("Multiplying")

@@ -1,7 +1,7 @@
-Created Github repository for homework assignment 3.
+Created Github repository for homework assignment 1.
 
 Author: Donald Aguinaldo
-PSID: 1455130
+:qPSID: 1455130
 UNIXID: cosc2954
 
 Infinite Arithmetic Calculator

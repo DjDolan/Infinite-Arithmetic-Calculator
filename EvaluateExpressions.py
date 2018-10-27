@@ -31,7 +31,7 @@ def right_operand(parsed_exp, right_exp):
 	#base case
 	#if it reaches the end of the list then append
 	#the character to expression and exit loop
-	if(len(parsed_exp) == 0):
+	if len(parsed_exp) == 0:
 		return right_exp
 	else:
 		right_exp.append(parsed_exp[0])
@@ -60,10 +60,11 @@ def evaluate(left, right, nod, op, results):
 	if op == '+':
 		#if operator is add then call the add function
 		add(operand1, operand2, res, nod, 0)
-		results.append(res)
+		results.append(sum(res))
 	elif op == '*':
 		#if operator is multiply call the multiply function
-		print("Multiplying")
+		multiply(operand1, operand2, res, nod, 0, 0)
+		results.append(sum(res))
 
 #This function will split the expression to left, right, and operator
 def split_expression(parsed_exp, results, num_of_digits):

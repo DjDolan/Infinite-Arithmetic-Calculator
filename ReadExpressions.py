@@ -11,13 +11,13 @@ def is_operator(c):
 def parse(exp, parsed_line, tmp_str, nod, i):
     
     #base case
-    if(i == len(exp)-1):
+    if i == len(exp)-1:
         tmp_str += exp[i]
         parsed_line.append(tmp_str[::-1])
 
     #if operator then append temporary string
     #and append operator to parsed line
-    elif(is_operator(exp[i])):
+    elif is_operator(exp[i]):
         if not tmp_str:
             parsed_line.append(exp[i])
             parse(exp, parsed_line, tmp_str, nod, i+1)
@@ -30,7 +30,7 @@ def parse(exp, parsed_line, tmp_str, nod, i):
     #if the size of the temporary string is
     #equal to the number of digits per node
     #append the temporary string to the list
-    elif(len(tmp_str) == nod-1):
+    elif len(tmp_str) == nod-1:
         tmp_str += exp[i]
         parsed_line.append(tmp_str[::-1])
         tmp_str = ""

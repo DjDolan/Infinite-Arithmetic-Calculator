@@ -29,8 +29,7 @@ def main():
     for parsed_exp in parsed_expressions:
         split_expression(parsed_exp, results, num_of_digits)
     
-    for i in range(len(expressions)):
-        print(expressions[i], '=', sum(results[i]), sep='')
+    print(results)
 
     #END MAIN
 

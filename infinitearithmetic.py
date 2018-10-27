@@ -2,15 +2,20 @@
 This file is the main file where the final result will be handled.
 """
 
-import getopt, sys
+import argparse
 from ReadFile import *
 from ReadExpressions import *
 from EvaluateExpressions import *
 
+parser = argparse.ArgumentParser(description='Evaluate the arithmetic expressions.')
+parser.add_argument('-i', '--input', type=str, help='Input file')
+parser.add_argument('-dPN', '--digitsPerNode', type=int, help='Number of digits to divide by')
+args = parser.parse_args()
+
 def main():
     #enter input file and number of digits on command line
-    input_file = "pycode.txt"
-    num_of_digits = 2
+    input_file = args.input
+    num_of_digits = args.digitsPerNode
 
     #create containers for expressions
     #must be using lists
@@ -29,7 +34,9 @@ def main():
     for parsed_exp in parsed_expressions:
         split_expression(parsed_exp, results, num_of_digits)
     
-    print(results)
+    #print out the results
+    for x in range(len(expressions)):
+        print(expressions[x], '=', results[x], sep='')
 
     #END MAIN
 

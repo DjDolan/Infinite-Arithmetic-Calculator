@@ -29,9 +29,18 @@ def multiply(op1, op2, res, nod, i, j):
 
 	#'i' is the first operand iterator
 	if i == len(op1)-1:	
-		_prod = (op1[i] * i_place_value) * (op2[j] * j_place_value)
-		res.append(_prod)
-
+		#'j' is the second operand iterator
+		#nested if recursion that checks if 'j' has reached the end
+		#after iterating through the first operand
+		if j == len(op2)-1:
+			_prod = (op1[i] * i_place_value) * (op2[j] * j_place_value)
+			res.append(_prod)
+		else:
+			_prod = (op1[i] * i_place_value) * (op2[j] * j_place_value)
+			res.append(_prod)
+			multiply(op1, op2, res, nod, 0, j+1)
+	#if operand1 has not reach the end then calculate and iterate
+	#forward through the expression
 	else:
 		_prod = (op1[i] * i_place_value) * (op2[j] * j_place_value)
 		res.append(_prod)
